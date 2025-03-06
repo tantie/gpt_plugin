@@ -1,0 +1,65 @@
+openapi: 3.0.1
+info:
+  title: Local Read-Only Plugin
+  description: "Плагин для чтения структуры и файлов проекта (без записи)."
+  version: "0.1.0"
+servers:
+  - url: "http://localhost:3333"
+paths:
+  /list-project:
+    get:
+      operationId: listProject
+      summary: "Список всех файлов и папок (рекурсивно)"
+      parameters:
+        - name: subdir
+          in: query
+          required: false
+          description: "Папка, которую хотим обойти. Пример: 'src' или 'src/'"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    is_dir:
+                      type: boolean
+        "404":
+          description: "Директория не найдена."
+
+  /read-file:
+    get:
+      operationId: readFile
+      summary: "Считать файл"
+      parameters:
+        - name: filepath
+          in: query
+          required: true
+          description: "Относительный путь к файлу внутри проекта"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  filepath:
+                    type: string
+                  content:
+                    type: string
+        "403":
+          description: "Доступ запрещён."
+        "404":
+          description: "Файл не найден."
+        "500":
+          description: "Ошибка при чтении файла."

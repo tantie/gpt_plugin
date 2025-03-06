@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Local Read-Only Project Browser",
+  "name_for_model": "local_readonly_browser",
+  "description_for_human": "Плагин для чтения структуры и содержимого локального проекта (read-only).",
+  "description_for_model": "Provides read-only access to project structure and file contents. No write access.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "http://localhost:3333/static/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "http://localhost:3333/static/plugin-logo.png",
+  "contact_email": "admin@example.com",
+  "legal_info_url": "https://example.com/legal"
+}
